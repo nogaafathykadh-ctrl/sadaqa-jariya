@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>صدقة جارية لوالدي</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+<style>
+  /* Layout: one calm column, like a still pool. A ripple mark opens the page, then the hadith, ways to give, a dhikr counter, and a dua. */
+  :root {
+    --bg: #eff4f3;
+    --surface: #f9fbfa;
+    --fg: #14302f;
+    --muted: #4d6968;
+    --line: #cddbd9;
+    --accent: #176b69;
+    --accent-fg: #ffffff;
+    --accent-soft: #dcebe9;
+    --font-display: 'Amiri', 'Traditional Arabic', 'Noto Naskh Arabic', serif;
+    --font-body: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0d1a1b;
+      --surface: #132324;
+      --fg: #e4eeec;
+      --muted: #93aaa7;
+      --line: #26403f;
+      --accent: #5cc2b5;
+      --accent-fg: #06201e;
+      --accent-soft: #17302f;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d1a1b;
+    --surface: #132324;
+    --fg: #e4eeec;
+    --muted: #93aaa7;
+    --line: #26403f;
+    --accent: #5cc2b5;
+    --accent-fg: #06201e;
+    --accent-soft: #17302f;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.8;
+    direction: rtl;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 0;
+  }
+  .page {
+    max-width: 680px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+    padding-block: 2.5rem 3rem;
+  }
+  h1, h2 { font-family: var(--font-display); font-weight: 700; text-wrap: balance; margin: 0; line-height: 1.35; }
+  h1 { font-size: clamp(2.2rem, 8vw, 3.2rem); }
+  h2 { font-size: 1.75rem; }
+  p { margin: 0; }
+
+  /* Hero */
+  .hero { display: flex; flex-direction: column; gap: 1.25rem; align-items: flex-start; }
+  .ripple { width: 76px; height: 76px; color: var(--accent); }
+  .lead { color: var(--muted); font-size: 1.05rem; max-width: 34rem; }
+  .name { color: var(--accent); }
+
+  .hadith {
+    margin: 0.5rem 0 0;
+    padding: 1.4rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 100%;
+  }
+  .hadith q {
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    line-height: 2;
+    quotes: none;
+  }
+  .hadith cite { font-style: normal; color: var(--muted); font-size: 0.9rem; }
+
+  /* Sections */
+  section { display: flex; flex-direction: column; gap: 1.1rem; min-width: 0; }
+  .section-note { color: var(--muted); max-width: 34rem; }
+
+  /* Ways to give */
+  .ways { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .ways li {
+    display: grid;
+    grid-template-columns: 0.55rem 1fr;
+    column-gap: 0.9rem;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .ways li::before {
+    content: "";
+    width: 0.55rem; height: 0.55rem;
+    margin-top: 0.7rem;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    background: var(--accent);
+  }
+  .ways strong { display: block; font-weight: 600; font-size: 1.05rem; }
+  .ways span { color: var(--muted); font-size: 0.95rem; }
+
+  /* Counters */
+  .counters { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.9rem; }
+  .counter {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1.1rem 1.1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 0;
+  }
+  .counter .label { font-family: var(--font-display); font-size: 1.35rem; line-height: 1.5; }
+  .counter .num { font-size: 2.6rem; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; color: var(--accent); }
+  .counter .row { display: flex; gap: 0.5rem; margin-top: 0.4rem; }
+  button {
+    font: inherit;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid var(--accent);
+    min-height: 48px;
+  }
+  button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .add { flex: 1; background: var(--accent); color: var(--accent-fg); font-weight: 600; font-size: 1.05rem; }
+  .add:active { transform: scale(0.98); }
+  .undo { width: 48px; background: transparent; color: var(--accent); font-size: 1.4rem; line-height: 1; }
+  .total {
+    background: var(--accent-soft);
+    border-radius: 6px;
+    padding: 0.9rem 1.1rem;
+    font-weight: 500;
+  }
+  .total b { font-variant-numeric: tabular-nums; font-size: 1.15rem; }
+
+  /* Dua */
+  .dua {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .dua p { font-family: var(--font-display); font-size: 1.5rem; line-height: 2.1; }
+  .dua .src { color: var(--muted); font-family: var(--font-body); font-size: 0.9rem; line-height: 1.6; }
+  .copy { align-self: flex-start; background: transparent; color: var(--accent); padding-inline: 1.2rem; font-weight: 500; }
+
+  footer { color: var(--muted); text-align: center; font-family: var(--font-display); font-size: 1.3rem; padding-top: 0.5rem; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ripple circle { transform-origin: center; animation: breathe 6s ease-in-out infinite; }
+    .ripple circle:nth-child(2) { animation-delay: 0.8s; }
+    .ripple circle:nth-child(3) { animation-delay: 1.6s; }
+    @keyframes breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  }
+</style>
+
+<style>body{margin:0}</style>
+</head>
+<body>
+<main class="page" dir="rtl" lang="ar">
+  <header class="hero">
+    <svg class="ripple" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="40" cy="40" r="6" fill="currentColor" stroke="none"/>
+      <circle cx="40" cy="40" r="18"/>
+      <circle cx="40" cy="40" r="32" stroke-opacity="0.6"/>
+    </svg>
+    <h1>صدقة جارية على روح <span class="name">والدي فتحي عبدالهادي</span></h1>
+    <p class="lead">رحمه الله وغفر له. هذه الصفحة لمن يحب أن يشاركنا في الأجر، بالعمل أو بالذكر أو بالدعاء.</p>
+
+    <figure class="hadith" style="margin-inline:0">
+      <q>إذا مات ابن آدم انقطع عمله إلا من ثلاث: صدقة جارية، أو علم ينتفع به، أو ولد صالح يدعو له.</q>
+      <cite>رواه مسلم</cite>
+    </figure>
+  </header>
+
+  <section aria-labelledby="ways-h">
+    <h2 id="ways-h">طرق المشاركة في الأجر</h2>
+    <p class="section-note">كل عمل ينفع الناس بعد وفاته يصله أجره بإذن الله. اختر ما يناسبك، ولو كان صغيراً.</p>
+    <ul class="ways">
+      <li><div><strong>سقيا الماء</strong><span>المساهمة في برادة ماء أو سبيل أو حفر بئر في مكان يحتاجه الناس.</span></div></li>
+      <li><div><strong>مصحف يُقرأ</strong><span>إهداء مصحف أو أكثر لمسجد أو لمن يحتاجه.</span></div></li>
+      <li><div><strong>إطعام محتاج</strong><span>وجبة لأسرة محتاجة أو إفطار صائم أو كفالة يتيم.</span></div></li>
+      <li><div><strong>علم ينتفع به</strong><span>نشر كتاب نافع أو دعم طالب علم أو تعليم أحد ما تعرفه.</span></div></li>
+      <li><div><strong>غرس شجرة</strong><span>شجرة مثمرة يأكل منها الناس والطير.</span></div></li>
+      <li><div><strong>ختمة وعمرة</strong><span>قراءة ما تيسّر من القرآن أو أداء عمرة وجعل ثوابها له.</span></div></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="count-h">
+    <h2 id="count-h">اهدِ له ثواب ذكرك</h2>
+    <p class="section-note">اضغط عند كل ذكر وانوِ ثوابه للمرحوم فتحي عبدالهادي. العدّاد محفوظ على جهازك فقط.</p>
+    <div class="counters" id="counters"></div>
+    <div class="total">مجموع ما أهديته له: <b id="total">٠</b></div>
+  </section>
+
+  <section aria-labelledby="dua-h">
+    <h2 id="dua-h">دعاء</h2>
+    <div class="dua">
+      <p id="dua-text">اللَّهُمَّ اغْفِرْ لَهُ وَارْحَمْهُ، وَعَافِهِ وَاعْفُ عَنْهُ، وَأَكْرِمْ نُزُلَهُ، وَوَسِّعْ مُدْخَلَهُ، وَاغْسِلْهُ بِالْمَاءِ وَالثَّلْجِ وَالْبَرَدِ، وَنَقِّهِ مِنَ الْخَطَايَا كَمَا نَقَّيْتَ الثَّوْبَ الْأَبْيَضَ مِنَ الدَّنَسِ.</p>
+      <span class="src">من دعاء النبي صلى الله عليه وسلم في صلاة الجنازة، رواه مسلم.</span>
+      <button class="copy" id="copy" type="button">نسخ الدعاء</button>
+    </div>
+  </section>
+
+  <footer>جزاك الله خيراً على دعائك له</footer>
+</main>
+
+<script>
+(function () {
+  var items = [
+    { id: 'istighfar', label: 'أستغفر الله' },
+    { id: 'salat', label: 'اللهم صلِّ على محمد' },
+    { id: 'tasbih', label: 'سبحان الله وبحمده' }
+  ];
+  var KEY = 'sadaqa-jariya-counts';
+  var counts = {};
+  try { counts = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { counts = {}; }
+  items.forEach(function (it) { if (typeof counts[it.id] !== 'number') counts[it.id] = 0; });
+
+  var fmt = function (n) { try { return n.toLocaleString('ar-EG'); } catch (e) { return String(n); } };
+  var save = function () { try { localStorage.setItem(KEY, JSON.stringify(counts)); } catch (e) {} };
+
+  var wrap = document.getElementById('counters');
+  var totalEl = document.getElementById('total');
+
+  function render() {
+    var sum = 0;
+    items.forEach(function (it) {
+      sum += counts[it.id];
+      document.getElementById('n-' + it.id).textContent = fmt(counts[it.id]);
+    });
+    totalEl.textContent = fmt(sum);
+  }
+
+  items.forEach(function (it) {
+    var card = document.createElement('div');
+    card.className = 'counter';
+    card.innerHTML =
+      '<div class="label"></div>' +
+      '<div class="num" id="n-' + it.id + '" aria-live="polite">٠</div>' +
+      '<div class="row">' +
+      '<button type="button" class="add" id="add-' + it.id + '">أضف</button>' +
+      '<button type="button" class="undo" id="undo-' + it.id + '" aria-label="تراجع">−</button>' +
+      '</div>';
+    card.querySelector('.label').textContent = it.label;
+    wrap.appendChild(card);
+    card.querySelector('.add').addEventListener('click', function () { counts[it.id] += 1; save(); render(); });
+    card.querySelector('.undo').addEventListener('click', function () { if (counts[it.id] > 0) { counts[it.id] -= 1; save(); render(); } });
+  });
+  render();
+
+  var copyBtn = document.getElementById('copy');
+  var duaEl = document.getElementById('dua-text');
+  function selectText() {
+    var r = document.createRange();
+    r.selectNodeContents(duaEl);
+    var s = window.getSelection();
+    s.removeAllRanges();
+    s.addRange(r);
+  }
+  copyBtn.addEventListener('click', function () {
+    var done = function () { copyBtn.textContent = 'تم النسخ'; setTimeout(function () { copyBtn.textContent = 'نسخ الدعاء'; }, 1800); };
+    try {
+      navigator.clipboard.writeText(duaEl.textContent).then(done, function () { selectText(); copyBtn.textContent = 'حدد النص وانسخه'; });
+    } catch (e) { selectText(); copyBtn.textContent = 'حدد النص وانسخه'; }
+  });
+})();
+</script>
+</body>
+</html>
